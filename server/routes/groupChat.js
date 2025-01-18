@@ -3,10 +3,11 @@ const {
   getGroupMessages,
   sendGroupMessage,
 } = require("../controllers/groupChatController");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/:groupId", getGroupMessages);
-router.post("/", sendGroupMessage);
+router.get("/:groupId",authMiddleware, getGroupMessages);
+router.post("/",sendGroupMessage);
 
 module.exports = router;

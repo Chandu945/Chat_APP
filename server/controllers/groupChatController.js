@@ -1,6 +1,5 @@
 const GroupMessage = require("../models/GroupMessage");
 const GroupUser = require("../models/GroupUser");
-
 // Fetch all messages for a group
 exports.getGroupMessages = async (req, res) => {
   try {
@@ -44,3 +43,5 @@ exports.sendGroupMessage = async (req, res) => {
     res.status(500).json({ error: "Failed to send message" });
   }
 };
+
+

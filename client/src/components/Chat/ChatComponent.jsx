@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 const ChatComponent = () => {
   const [users, setUsers] = useState([]); // Other users for personal chat
@@ -11,15 +8,30 @@ const ChatComponent = () => {
   const [messages, setMessages] = useState([]); // Stores messages
   const [newMessage, setNewMessage] = useState(""); // New message input
   const userId = localStorage.getItem("userId"); // Get current user ID from storage
+  const token = localStorage.getItem("token");
 
   // Fetch users & groups
   useEffect(() => {
     const fetchUsersAndGroups = async () => {
       try {
-        const userRes = await axios.get(`http://localhost:8080/users/${userId}`);
+        const userRes = await axios.get(
+          `http://localhost:8080/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to headers
+            },
+          }
+        );
         setUsers(userRes.data);
 
-        const groupRes = await axios.get(`http://localhost:8080/group/userGroups/${userId}`);
+        const groupRes = await axios.get(
+          `http://localhost:8080/group/userGroups/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to headers
+            },
+          }
+        );
         setGroups(groupRes.data.groups);
       } catch (error) {
         console.error("Error fetching users or groups:", error);
@@ -38,7 +50,11 @@ const ChatComponent = () => {
           ? `http://localhost:8080/groupChat/${selectedChat.id}`
           : `http://localhost:8080/chat/${userId}/${selectedChat.id}`;
 
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to headers
+        },
+      });
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching messages:", error.message);
@@ -62,9 +78,14 @@ const ChatComponent = () => {
       const data =
         selectedChat.type === "group"
           ? { groupId: selectedChat.id, senderId: userId, message: newMessage }
-          : { senderId: userId, receiverId: selectedChat.id, message: newMessage };
+          : {
+              senderId: userId,
+              receiverId: selectedChat.id,
+              message: newMessage,
+            };
 
       await axios.post(url, data);
+
       fetchMessages();
       setNewMessage("");
     } catch (error) {
@@ -84,41 +105,48 @@ const ChatComponent = () => {
 
   return (
     <div className="chat-container">
-      
       <div className="sidebar">
-      <div className="chat-head">
-        <h4>Chats</h4>
-      </div>
-      <div className="chat-list">
-  {users.map((user) => (
-    <div
-      key={user.id}
-      className="chat-person"
-      onClick={() => setSelectedChat({ ...user, type: "user" })}
-    >
-      {user.name}
-    </div>
-  ))}
-  {groups.map((group) => (
-            <div key={group.id} className="chat-person" onClick={() => setSelectedChat({ ...group, type: "group" })}>
+        <div className="chat-head">
+          <h4>Chats</h4>
+        </div>
+        <div className="chat-list">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              className="chat-person"
+              onClick={() => setSelectedChat({ ...user, type: "user" })}
+            >
+              {user.name}
+            </div>
+          ))}
+          {groups.map((group) => (
+            <div
+              key={group.id}
+              className="chat-person"
+              onClick={() => setSelectedChat({ ...group, type: "group" })}
+            >
               {group.name}
             </div>
           ))}
-</div>
-     
+        </div>
       </div>
 
       {/* Chat Window */}
       <div className="chat-window">
         {selectedChat && (
           <>
-          <div className="inchat"> <h3 >&#128100; {selectedChat.name}</h3></div>
-           
+            <div className="inchat">
+              {" "}
+              <h3>&#128100; {selectedChat.name}</h3>
+            </div>
+
             <div className="messages">
               {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`message-container ${msg.senderId == userId ? "right" : "left"}`}
+                  className={`message-container ${
+                    msg.senderId == userId ? "right" : "left"
+                  }`}
                 >
                   <div className="message">
                     <p className="in-msg">{msg.message}</p>

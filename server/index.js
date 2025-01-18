@@ -5,6 +5,8 @@ const sequelize = require("./config/database");
 const authRoutes = require("./routes/auth");
 const chatRoutes = require("./routes/chat");
 const groupRoutes = require("./routes/group");
+const userRoutes = require("./routes/user");
+const groupChatRoutes = require("./routes/groupChat");
 
 const app = express();
 app.use(cors());
@@ -13,10 +15,10 @@ app.use(bodyParser.json());
 app.use("/auth", authRoutes);
 app.use("/chat", chatRoutes);
 app.use("/group", groupRoutes);
-const groupChatRoutes = require("./routes/groupChat");
 app.use("/groupChat", groupChatRoutes);
-const userRoutes = require("./routes/user");
 app.use("/users", userRoutes);
+
+
 sequelize
   .sync()
   .then(() => {

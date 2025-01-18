@@ -13,11 +13,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/auth/login",
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
         formData
       );
+      console.log(response.data);
+      
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.userId);
+      localStorage.setItem("userId", response.data.user.id);
       navigate("/dashboard");
     } catch (error) {
       alert("Login failed");
@@ -43,7 +45,14 @@ const Login = () => {
           required
         />
         <button type="submit">Login</button>
+
       </form>
+      <p className="form-text">
+        <a href="/forgot-password">Forgot Password?</a>
+      </p>
+      <p className="form-text">
+        Don't have an account? <a href="/register">Signup</a>
+      </p>
     </div>
   );
 };

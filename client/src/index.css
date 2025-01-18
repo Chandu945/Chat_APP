@@ -104,7 +104,7 @@
 }
 
 .sidebar {
-  width: 40%;
+  width: 50%;
   background-color: #f4f4f4;
   padding: 10px;
   overflow-y: auto;
@@ -275,4 +275,149 @@
 .inchat{
   padding: 10px;
   background-color: #e0e4e2;
+}
+/* General Styles */
+.group-management {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.group-management-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Create Group Section */
+.create-group-section {
+  margin-bottom: 30px;
+}
+
+.group-name-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-checkbox {
+  margin-right: 10px;
+}
+
+.create-group-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.create-group-button:hover {
+  background-color: #0056b3;
+}
+
+/* Group List */
+.group-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.group-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.group-button:hover {
+  background-color: #218838;
+}
+
+/* Modal Styles */
+.group-management-modal .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.group-management-modal .modal-title {
+  font-size: 20px;
+  color: #333;
+}
+
+.group-management-modal .modal-body {
+  padding: 20px;
+}
+
+.group-members-list,
+.non-group-members-list {
+  list-style: none;
+  padding: 0;
+}
+
+.group-member-item,
+.non-group-member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.remove-user-button,
+.add-user-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-user-button {
+  background-color: #17a2b8;
+}
+
+.remove-user-button:hover {
+  background-color: #c82333;
+}
+
+.add-user-button:hover {
+  background-color: #138496;
+}
+
+.leave-group-button {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.leave-group-button:hover {
+  background-color: #e0a800;
 }

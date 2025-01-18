@@ -24,8 +24,10 @@ exports.getMessages = async (req, res) => {
 };
 
 exports.sendMessage = async (req, res) => {
-  try {
+  try { 
+    
     const { senderId, receiverId, message } = req.body;
+    console.log(senderId);
     const chat = await Chat.create({ senderId, receiverId, message });
     res.json(chat);
   } catch (error) {
